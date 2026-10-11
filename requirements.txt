@@ -1,0 +1,5 @@
+reportlab>=4.0,<5
+customtkinter>=5.2,<6
+pyinstaller>=6.0,<7
+openpyxl>=3.1,<4
+xlrd>=2.0,<3
