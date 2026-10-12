@@ -1,5 +1,5 @@
 #define MyAppName "Open Chess"
-#define MyAppVersion "0.9.0"
+#define MyAppVersion "0.9.1"
 #define MyAppPublisher "Open Chess"
 #define MyAppExeName "OpenChess.exe"
 
