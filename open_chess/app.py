@@ -105,8 +105,12 @@ class OpenChessApp(ctk.CTk):
     def __init__(self, db_path: str | Path | None = None):
         super().__init__()
         self.title("Open Chess · Campeonatos escolares")
-        self.geometry("1280x820")
-        self.minsize(1050, 700)
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        window_width = min(1280, max(820, screen_width - 60))
+        window_height = min(820, max(560, screen_height - 100))
+        self.geometry(f"{window_width}x{window_height}")
+        self.minsize(820, 560)
         self.configure(fg_color=BG)
         self.db = Database(db_path or default_data_path())
         self.current_id: int | None = None
@@ -287,8 +291,10 @@ class OpenChessApp(ctk.CTk):
 
     def _build_pairings_tab(self) -> None:
         tab = self.pairings_tab
+        tab.grid_columnconfigure(0, weight=1)
+        tab.grid_rowconfigure(1, weight=1, minsize=120)
         toolbar = ctk.CTkFrame(tab, fg_color=SURFACE, corner_radius=16, border_width=1, border_color=BORDER)
-        toolbar.pack(fill="x", padx=4, pady=(8, 10))
+        toolbar.grid(row=0, column=0, sticky="ew", padx=4, pady=(8, 10))
         ctk.CTkLabel(toolbar, text="Grupo", text_color=TEXT,
                      font=ctk.CTkFont(size=13, weight="bold")).pack(side="left", padx=(16, 8), pady=13)
         self.pairing_group_var = tk.StringVar(value="Sin grupos")
@@ -310,13 +316,13 @@ class OpenChessApp(ctk.CTk):
                       width=115, height=37, corner_radius=10, fg_color=PRIMARY,
                       hover_color=PRIMARY_HOVER, text_color="white").pack(side="right", padx=14, pady=10)
         table_area = ctk.CTkFrame(tab, fg_color="transparent")
-        table_area.pack(fill="both", expand=True, padx=4)
+        table_area.grid(row=1, column=0, sticky="nsew", padx=4)
         self.pairings_tree = make_tree(table_area, ("board", "white", "black", "result"),
             ("Mesa", "Blancas", "Negras", "Resultado"), (70, 350, 350, 130))
         self.pairings_tree.bind("<<TreeviewSelect>>", self.on_pairing_selected)
         result_bar = ctk.CTkFrame(tab, fg_color="#E2EDF3", corner_radius=17,
                                   border_width=1, border_color="#B5CCD9")
-        result_bar.pack(fill="x", padx=4, pady=(10, 8))
+        result_bar.grid(row=2, column=0, sticky="ew", padx=4, pady=(10, 8))
         result_text = ctk.CTkFrame(result_bar, fg_color="transparent")
         result_text.pack(side="left", fill="x", expand=True, padx=(17, 10), pady=11)
         ctk.CTkLabel(result_text, text="Puntuar la mesa seleccionada", text_color=TEXT,
