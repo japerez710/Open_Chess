@@ -47,6 +47,6 @@ jobs:
       - name: Publicar instalador
         uses: actions/upload-artifact@v7
         with:
-          name: OpenChess-Windows-Setup-0.9.0
-          path: dist/installer/OpenChess-Setup-0.9.0.exe
+          name: OpenChess-Windows-Setup-0.9.1
+          path: dist/installer/OpenChess-Setup-0.9.1.exe
           if-no-files-found: error
